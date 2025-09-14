@@ -5,14 +5,20 @@ import { v } from "convex/values";
 export const create = mutation({
 	args: v.object({
 		type: v.string(),
-		img: v.string(),
+		img: v.optional(v.string()),
 		url: v.optional(v.string()),
+		youtubeId: v.optional(v.string()),
+		tweetId: v.optional(v.string()),
+		imgUrl: v.optional(v.string()),
 	}),
 	handler: async (ctx, args) => {
 		const id = await ctx.db.insert("items", {
 			type: args.type,
 			img: args.img,
 			url: args.url,
+			youtubeId: args.youtubeId,
+			tweetId: args.tweetId,
+			imgUrl: args.imgUrl,
 		});
 		return id;
 	},

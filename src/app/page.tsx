@@ -3,6 +3,7 @@ import { FinisherHeader } from "~/app/_components/finisherHeader";
 import { AddItem } from "~/app/_components/addItem";
 import { usePaginatedQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { getYoutubeImgUrl } from "./_lib/url";
 
 export default function Home() {
 	const { results, status, isLoading, loadMore } = usePaginatedQuery(
@@ -11,29 +12,56 @@ export default function Home() {
 		{ initialNumItems: 10 },
 	);
 
-	console.log("zjflog", results, status, loadMore);
-
 	return (
 		<main className="finisher-header relative h-dvh overflow-auto">
 			<div className="grid auto-rows-min grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
 				{results?.map((item) => {
-					const img = (
-						<div className="esease-in-out relative h-full w-full transition-transform duration-500 hover:scale-110">
-							{item.img ? (
+					let img = null;
+
+					if (item.type === "youtube" && item.youtubeId) {
+						const youtubeImgUrl = getYoutubeImgUrl(item.youtubeId);
+						img = (
+							<div className="tile-transition">
 								<img
-									className="h-full w-full object-cover"
-									src={`https://amrcoyv0v3.ufs.sh/f/${item.img}`}
+									className="tile-img-youtube"
+									src={youtubeImgUrl}
 									alt={item.url}
 								/>
-							) : (
-								item.url
-							)}
-						</div>
-					);
+							</div>
+						);
+					}
+
+					if (item.type === "tweet" && item.imgUrl) {
+						img = (
+							<div className="tile-transition">
+								<img
+									className="tile-img-youtube"
+									src={item.imgUrl}
+									alt={item.url}
+								/>
+							</div>
+						);
+					}
+
+					if (item.img) {
+						img = (
+							<div className="tile-transition">
+								{item.img ? (
+									<img
+										className="tile-img"
+										src={`https://amrcoyv0v3.ufs.sh/f/${item.img}`}
+										alt={item.url}
+									/>
+								) : (
+									item.url
+								)}
+							</div>
+						);
+					}
 
 					if (!item.url) {
 						return (
-							<div key={item._id} className="aspect-square overflow-hidden">
+							<div key={item._id} className="tile-wrapper overflow-hidden">
 								{img}
 							</div>
 						);
@@ -43,7 +71,7 @@ export default function Home() {
 						<a
 							key={item._id}
 							href={item.url}
-							className="aspect-square overflow-hidden"
+							className="tile-wrapper overflow-hidden"
 							target="_blank"
 							rel="noreferrer"
 						>
@@ -54,7 +82,7 @@ export default function Home() {
 				{status !== "Exhausted" && (
 					<button
 						type="button"
-						className="aspect-square cursor-pointer bg-gray-100 text-gray-600 opacity-50 hover:bg-gray-200"
+						className="tile-wrapper cursor-pointer bg-gray-100 text-gray-600 opacity-50 hover:bg-gray-200"
 						onClick={() => {
 							if (isLoading) {
 								return;

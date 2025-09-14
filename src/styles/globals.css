@@ -130,3 +130,19 @@
 #finisher-canvas {
 	position: fixed !important;
 }
+
+.tile-wrapper {
+	@apply relative aspect-square bg-gray-50/50 shadow-sm;
+}
+
+.tile-transition {
+	@apply relative h-full w-full transition-transform duration-500 hover:scale-110;
+}
+
+.tile-img {
+	@apply h-full w-full object-cover;
+}
+
+.tile-img-youtube {
+	@apply h-full w-full object-contain;
+}
