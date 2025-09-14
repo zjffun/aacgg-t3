@@ -107,6 +107,7 @@ export function AddItem() {
 	useEffect(() => {
 		if (!tweetId) {
 			setImgUrl("");
+			return;
 		}
 
 		(async () => {

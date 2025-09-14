@@ -55,7 +55,6 @@ async function getTweetImgUrl(tweetId: string) {
 	);
 
 	const json = await res.json();
-	console.log("zjflog", json);
 
 	if (!res.ok) {
 		return "";
