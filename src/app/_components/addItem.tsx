@@ -122,7 +122,12 @@ export function AddItem() {
 	}, [tweetId]);
 
 	return (
-		<Drawer direction={direction} open={open} onOpenChange={setOpen}>
+		<Drawer
+			direction={direction}
+			open={open}
+			repositionInputs={false}
+			onOpenChange={setOpen}
+		>
 			<DrawerTrigger asChild>
 				<button
 					type="button"
@@ -144,6 +149,7 @@ export function AddItem() {
 						<Label htmlFor="url">URL</Label>
 						<Input
 							id="url"
+							value={url}
 							onChange={(event) => {
 								setUrl(event?.target?.value);
 							}}
