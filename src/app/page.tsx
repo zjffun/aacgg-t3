@@ -1,9 +1,9 @@
 "use client";
 import { FinisherHeader } from "~/app/_components/finisherHeader";
-import { AddItem } from "~/app/_components/addItem";
 import { usePaginatedQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { getYoutubeImgUrl } from "./_lib/url";
+import { BottomBar } from "./_components/bottomBar";
 
 export default function Home() {
 	const { results, status, isLoading, loadMore } = usePaginatedQuery(
@@ -95,7 +95,7 @@ export default function Home() {
 					</button>
 				)}
 			</div>
-			<AddItem />
+			<BottomBar />
 			<FinisherHeader />
 		</main>
 	);

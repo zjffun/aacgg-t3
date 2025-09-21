@@ -131,7 +131,7 @@ export function AddItem() {
 			<DrawerTrigger asChild>
 				<button
 					type="button"
-					className="fixed right-6 bottom-6 z-50 flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-primary/90 text-white opacity-90 shadow-lg"
+					className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-primary/90 text-white opacity-90 shadow-lg"
 					aria-label="Add Item"
 					onClick={() => setOpen(true)}
 				>

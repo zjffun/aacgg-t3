@@ -12,7 +12,10 @@ export const create = mutation({
 		imgUrl: v.optional(v.string()),
 	}),
 	handler: async (ctx, args) => {
+		const identity = await ctx.auth.getUserIdentity();
+
 		const id = await ctx.db.insert("items", {
+			userId: identity?.subject || "aacgg_anonymous",
 			type: args.type,
 			img: args.img,
 			url: args.url,
