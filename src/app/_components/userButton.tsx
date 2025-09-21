@@ -8,7 +8,7 @@ export default function UserButton() {
 	return (
 		<div className="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-primary/90 text-white opacity-90 shadow-lg">
 			<Unauthenticated>
-				<SignInButton>
+				<SignInButton mode="modal">
 					<Smile size={32} />
 				</SignInButton>
 			</Unauthenticated>

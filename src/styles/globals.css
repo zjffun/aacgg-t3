@@ -132,7 +132,11 @@
 }
 
 .tile-wrapper {
-	@apply relative aspect-square bg-gray-50/50 shadow-sm;
+	@apply relative aspect-square bg-gray-50/50 shadow-sm backdrop-blur-xs;
+}
+
+.tile-icon {
+	@apply absolute top-2 left-2 h-4 w-4 opacity-70 z-2;
 }
 
 .tile-transition {

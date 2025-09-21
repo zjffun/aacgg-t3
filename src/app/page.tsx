@@ -4,6 +4,8 @@ import { usePaginatedQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { getYoutubeImgUrl } from "./_lib/url";
 import { BottomBar } from "./_components/bottomBar";
+import { Twitter, Youtube } from "./_components/icons";
+import { ExternalLink } from "lucide-react";
 
 export default function Home() {
 	const { results, status, isLoading, loadMore } = usePaginatedQuery(
@@ -14,48 +16,57 @@ export default function Home() {
 
 	return (
 		<main className="finisher-header relative h-dvh overflow-auto">
-			<div className="grid auto-rows-min grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+			<div className="grid auto-rows-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
 				{results?.map((item) => {
 					let img = null;
 
 					if (item.type === "youtube" && item.youtubeId) {
 						const youtubeImgUrl = getYoutubeImgUrl(item.youtubeId);
 						img = (
-							<div className="tile-transition">
-								<img
-									className="tile-img-youtube"
-									src={youtubeImgUrl}
-									alt={item.url}
-								/>
-							</div>
+							<>
+								<Youtube className="tile-icon" fill="#FF0000" />
+								<div className="tile-transition">
+									<img
+										className="tile-img-youtube"
+										src={youtubeImgUrl}
+										alt={item.url}
+									/>
+								</div>
+							</>
 						);
 					}
 
 					if (item.type === "tweet" && item.imgUrl) {
 						img = (
-							<div className="tile-transition">
-								<img
-									className="tile-img-youtube"
-									src={item.imgUrl}
-									alt={item.url}
-								/>
-							</div>
+							<>
+								<Twitter className="tile-icon" />
+								<div className="tile-transition">
+									<img
+										className="tile-img-youtube"
+										src={item.imgUrl}
+										alt={item.url}
+									/>
+								</div>
+							</>
 						);
 					}
 
 					if (item.img) {
 						img = (
-							<div className="tile-transition">
-								{item.img ? (
-									<img
-										className="tile-img"
-										src={`https://amrcoyv0v3.ufs.sh/f/${item.img}`}
-										alt={item.url}
-									/>
-								) : (
-									item.url
-								)}
-							</div>
+							<>
+								<ExternalLink className="tile-icon" />
+								<div className="tile-transition">
+									{item.img ? (
+										<img
+											className="tile-img"
+											src={`https://amrcoyv0v3.ufs.sh/f/${item.img}`}
+											alt={item.url}
+										/>
+									) : (
+										item.url
+									)}
+								</div>
+							</>
 						);
 					}
 
