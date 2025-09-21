@@ -6,6 +6,7 @@ import { getYoutubeImgUrl } from "./_lib/url";
 import { BottomBar } from "./_components/bottomBar";
 import { Twitter, Youtube } from "./_components/icons";
 import { ExternalLink } from "lucide-react";
+import { clsx } from "clsx";
 
 export default function Home() {
 	const { results, status, isLoading, loadMore } = usePaginatedQuery(
@@ -16,7 +17,7 @@ export default function Home() {
 
 	return (
 		<main className="finisher-header relative h-dvh overflow-auto">
-			<div className="grid auto-rows-min grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+			<div className="grid auto-rows-min grid-cols-2 pb-32 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
 				{results?.map((item) => {
 					let img = null;
 
@@ -90,21 +91,37 @@ export default function Home() {
 						</a>
 					);
 				})}
-				{status !== "Exhausted" && (
-					<button
-						type="button"
-						className="tile-wrapper cursor-pointer bg-gray-100 text-gray-600 opacity-50 hover:bg-gray-200"
-						onClick={() => {
-							if (isLoading) {
-								return;
-							}
+				<div
+					className={clsx(
+						"tile-wrapper flex items-center justify-center bg-gray-100 text-gray-600",
+					)}
+				>
+					{(() => {
+						if (status === "Exhausted") {
+							return "No More Items";
+						}
 
-							loadMore(10);
-						}}
-					>
-						{isLoading ? "Loading..." : "Load More"}
-					</button>
-				)}
+						if (isLoading) {
+							return "Loading...";
+						}
+
+						return (
+							<button
+								type="button"
+								className="h-full w-full cursor-pointer text-gray-900 underline"
+								onClick={() => {
+									if (isLoading) {
+										return;
+									}
+
+									loadMore(10);
+								}}
+							>
+								Load More
+							</button>
+						);
+					})()}
+				</div>
 			</div>
 			<BottomBar />
 			<FinisherHeader />
