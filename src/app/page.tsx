@@ -20,49 +20,41 @@ export default function Home() {
 			<div className="grid auto-rows-min grid-cols-2 pb-32 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
 				{results?.map((item) => {
 					let img = null;
+					let imgUrl = "";
 
 					if (item.type === "youtube" && item.youtubeId) {
 						const youtubeImgUrl = getYoutubeImgUrl(item.youtubeId);
+						imgUrl = youtubeImgUrl;
 						img = (
 							<>
 								<Youtube className="tile-icon" fill="#FF0000" />
 								<div className="tile-transition">
-									<img
-										className="tile-img-youtube"
-										src={youtubeImgUrl}
-										alt={item.url}
-									/>
+									<img className="tile-img" src={imgUrl} alt={item.url} />
 								</div>
 							</>
 						);
 					}
 
 					if (item.type === "tweet" && item.imgUrl) {
+						imgUrl = item.imgUrl;
 						img = (
 							<>
 								<Twitter className="tile-icon" />
 								<div className="tile-transition">
-									<img
-										className="tile-img-youtube"
-										src={item.imgUrl}
-										alt={item.url}
-									/>
+									<img className="tile-img" src={imgUrl} alt={item.url} />
 								</div>
 							</>
 						);
 					}
 
 					if (item.img) {
+						imgUrl = `https://amrcoyv0v3.ufs.sh/f/${item.img}`;
 						img = (
 							<>
 								<ExternalLink className="tile-icon" />
 								<div className="tile-transition">
 									{item.img ? (
-										<img
-											className="tile-img"
-											src={`https://amrcoyv0v3.ufs.sh/f/${item.img}`}
-											alt={item.url}
-										/>
+										<img className="tile-img" src={imgUrl} alt={item.url} />
 									) : (
 										item.url
 									)}
@@ -70,6 +62,13 @@ export default function Home() {
 							</>
 						);
 					}
+
+					img = (
+						<>
+							<img className="tile-img-bg" src={imgUrl} alt={imgUrl} />
+							{img}
+						</>
+					);
 
 					if (!item.url) {
 						return (

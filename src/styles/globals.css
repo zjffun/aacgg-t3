@@ -140,13 +140,13 @@
 }
 
 .tile-transition {
-	@apply relative h-full w-full transition-transform duration-500 hover:scale-110;
+	@apply relative h-full w-full transition-transform duration-0 hover:duration-1000 hover:scale-110;
 }
 
 .tile-img {
-	@apply h-full w-full object-cover;
+	@apply h-full w-full object-cover hover:object-contain;
 }
 
-.tile-img-youtube {
-	@apply h-full w-full object-contain;
+.tile-img-bg {
+	@apply absolute top-0 left-0 h-full w-full object-cover blur-xs;
 }
